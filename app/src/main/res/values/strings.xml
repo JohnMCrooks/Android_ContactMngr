@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Contacts Android</string>
+    <string name="contact_name"></string>
 </resources>

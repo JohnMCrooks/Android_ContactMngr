@@ -1,5 +1,10 @@
 package com.crooks.contactsandroid;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemLongClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener {
 
     ArrayAdapter<Contact> contacts;
 
@@ -35,7 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         addButton.setOnClickListener(this);
-        listView.setOnItemLongClickListener(this);
+        listView.setOnItemLongClickListener(this);   //Long click to delete contact
+        listView.setOnItemClickListener(this);       //short click to view contact Details
     }
 
     @Override
@@ -50,10 +56,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        Contact contactItem = contacts.getItem(position);
-        contacts.remove(contactItem);
-        Toast.makeText(this, "Contact Deleted forever", Toast.LENGTH_SHORT).show();
+    public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+
+        new AlertDialog.Builder(this)           // Confirmation Box via http://stackoverflow.com/questions/2257963/how-to-show-a-dialog-to-confirm-that-the-user-wishes-to-exit-an-android-activity
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Delete Contact?")
+                .setMessage("Are you sure you want to delete this contact?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Contact contactItem = contacts.getItem( position);
+                        contacts.remove(contactItem);
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
+
         return true;
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        Contact test = (Contact) parent.getItemAtPosition(position);
+
+        Intent intent = new Intent(this, DisplayContact.class);
+        intent.putExtra("name", (String) test.getName());
+        intent.putExtra("phone",(String) test.getPhone());
+        startActivity(intent);
     }
 }
