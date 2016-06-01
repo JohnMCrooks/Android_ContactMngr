@@ -46,8 +46,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+
+
         String contact = nameField.getText().toString();
         String phone = phoneField.getText().toString();
+        if (phone.length()!= 10){
+            //TODO add validation
+        }
         Contact c = new Contact(contact, phone);
         contacts.add(c);
         nameField.setText("");
