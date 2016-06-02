@@ -28,20 +28,35 @@
             android:layout_weight="1"
             android:layout_marginLeft="15sp"/>
 
-        <TextView
-            android:text="TextView"
-            android:layout_width="match_parent"
-            android:layout_height="30sp"
-            android:id="@+id/textView3"
-            android:layout_weight="1"
-            android:layout_marginLeft="15sp"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="439dp"
             android:layout_weight="2.36">
 
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="30sp"
+                android:id="@+id/textView3"
+                android:layout_weight="1"
+                android:layout_marginLeft="15sp"/>
+
+            <Button
+                android:text="Call"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/callButton"
+                android:layout_weight="0" />
+
+            <Button
+                android:text="Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textButton"
+                android:layout_weight="0" />
+
         </LinearLayout>
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
