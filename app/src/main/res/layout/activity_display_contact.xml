@@ -5,9 +5,11 @@
     android:id="@+id/activity_display_contact"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
     tools:context="com.crooks.contactsandroid.DisplayContact">
 
     <LinearLayout
+
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -23,14 +25,16 @@
             android:layout_height="40dp"
             android:id="@+id/textView"
             android:textSize="20sp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_marginLeft="15sp"/>
 
         <TextView
             android:text="TextView"
             android:layout_width="match_parent"
             android:layout_height="30sp"
             android:id="@+id/textView3"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_marginLeft="15sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"

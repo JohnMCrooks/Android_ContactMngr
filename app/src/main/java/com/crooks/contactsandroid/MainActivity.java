@@ -51,12 +51,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String contact = nameField.getText().toString();
         String phone = phoneField.getText().toString();
         if (phone.length()!= 10){
-            //TODO add validation
+            Toast.makeText(getApplication().getBaseContext(), "Your number must be 10 digits", Toast.LENGTH_LONG).show();
+
+        }else {
+            Contact c = new Contact(contact, phone);
+            contacts.add(c);
+            nameField.setText("");
+            phoneField.setText("");
         }
-        Contact c = new Contact(contact, phone);
-        contacts.add(c);
-        nameField.setText("");
-        phoneField.setText("");
 
     }
 
@@ -88,8 +90,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Contact test = (Contact) parent.getItemAtPosition(position);
 
         Intent intent = new Intent(this, DisplayContact.class);
-        intent.putExtra("name", (String) test.getName());
-        intent.putExtra("phone",(String) test.getPhone());
+        intent.putExtra("name", test.getName());
+        intent.putExtra("phone", test.getPhone());
         startActivity(intent);
     }
 }
