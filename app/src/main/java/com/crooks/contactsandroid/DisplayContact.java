@@ -20,12 +20,11 @@ import static android.R.attr.text;
 
 public class DisplayContact extends AppCompatActivity implements View.OnClickListener {
 
-    ArrayAdapter<Contact> contact;
 
-    TextView textView3;
     String name1;
     String phone;
     TextView textView;
+    TextView textView3;
     Button callButton;
     Button textButton;
 
@@ -51,13 +50,19 @@ public class DisplayContact extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    //Found the Action_Dial usage Via Android https://developer.android.com
+    //Found the Action_Dial usage Via Android Dev docs https://developer.android.com
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(Intent.ACTION_DIAL);
-        String temp ="tel:" + phone;
-        intent.setData(Uri.parse(temp));
-
-        startActivity(intent);
+        if(v==callButton) {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            String temp = "tel:" + phone;
+            intent.setData(Uri.parse(temp));
+            startActivity(intent);
+        }else if(v==textButton){
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.putExtra("sms_body", "default content");
+            intent.setType("vnd.android-dir/mms-sms");
+            startActivity(intent);
+        }
     }
 }

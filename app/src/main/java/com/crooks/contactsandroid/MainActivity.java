@@ -1,5 +1,6 @@
 package com.crooks.contactsandroid;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Parcel;
@@ -15,6 +16,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileOutputStream;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener {
 
@@ -38,16 +42,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         contacts = new ArrayAdapter<Contact>(this, android.R.layout.simple_list_item_1);
         listView.setAdapter(contacts);
 
-
         addButton.setOnClickListener(this);
         listView.setOnItemLongClickListener(this);   //Long click to delete contact
         listView.setOnItemClickListener(this);       //short click to view contact Details
+//        TODO Load previous contact list on App Start....
+//        TODO find alternative to doing above using .getbytes()
     }
 
     @Override
     public void onClick(View v) {
-
-
         String contact = nameField.getText().toString();
         String phone = phoneField.getText().toString();
         if (phone.length()!= 10){
@@ -58,6 +61,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             contacts.add(c);
             nameField.setText("");
             phoneField.setText("");
+
+            String filename = "contactList";
+            String content = c.getName()+ ", " + c.getPhone() + "|";
+            FileOutputStream outputStream;
+            try{
+                outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+                outputStream.write(content.getBytes());
+                outputStream.close();
+                Toast.makeText(getBaseContext(),"Contact saved",Toast.LENGTH_SHORT).show();
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+            //TODO FIGURE OUT HOW TO  FIND & ACCESS THIS friggin FILE
         }
 
     }
