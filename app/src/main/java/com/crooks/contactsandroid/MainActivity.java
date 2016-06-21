@@ -3,6 +3,7 @@ package com.crooks.contactsandroid;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v7.app.AlertDialog;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         listView.setOnItemLongClickListener(this);   //Long click to delete contact
         listView.setOnItemClickListener(this);       //short click to view contact Details
 //        TODO Load previous contact list on App Start....
-//        TODO find alternative to doing above using .getbytes()
+//        TODO find alternative to doing above without using .getbytes()
     }
 
     @Override
@@ -75,7 +76,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             //TODO FIGURE OUT HOW TO  FIND & ACCESS THIS friggin FILE
         }
-
     }
 
     @Override
@@ -95,16 +95,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 })
                 .setNegativeButton("No", null)
                 .show();
-
         return true;
-
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
         Contact test = (Contact) parent.getItemAtPosition(position);
-
         Intent intent = new Intent(this, DisplayContact.class);
         intent.putExtra("name", test.getName());
         intent.putExtra("phone", test.getPhone());

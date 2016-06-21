@@ -39,6 +39,7 @@ public class DisplayContact extends AppCompatActivity implements View.OnClickLis
         textButton = (Button) findViewById(R.id.textButton);
 
         callButton.setOnClickListener(this);
+        textButton.setOnClickListener(this);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -50,7 +51,7 @@ public class DisplayContact extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    //Found the Action_Dial usage Via Android Dev docs https://developer.android.com
+    //Found the Action_Dial + Action_View usage Via Android Dev docs https://developer.android.com
     @Override
     public void onClick(View v) {
         if(v==callButton) {
@@ -59,9 +60,10 @@ public class DisplayContact extends AppCompatActivity implements View.OnClickLis
             intent.setData(Uri.parse(temp));
             startActivity(intent);
         }else if(v==textButton){
-            Intent intent = new Intent(Intent.ACTION_VIEW);
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("smsto:" + Uri.encode(phone)));
             intent.putExtra("sms_body", "default content");
-            intent.setType("vnd.android-dir/mms-sms");
+
             startActivity(intent);
         }
     }
